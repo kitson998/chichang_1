@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">chichang</string>
+    <string name="nav_setup">Setup</string>
+    <string name="nav_graph">Graph</string>
+    <string name="nav_home">Home</string>
+    <string name="appTitle">Time to CHICHANG</string>
+    <string name="label_top">December</string>
+    <string name="label_middle">1</string>
+    <string name="select_date">Select Date</string>
+</resources>
