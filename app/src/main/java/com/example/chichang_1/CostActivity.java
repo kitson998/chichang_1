@@ -2,50 +2,54 @@ package com.example.chichang_1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 public class CostActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    PageAdapter pageAdapter;
+    TabItem tabExpense;
+    TabItem tabIncome;
+    TabItem tabTotal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cost);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.main_nav);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("CHICHANG");
 
-        // set home select
-        bottomNavigationView.setSelectedItemId(R.id.home);
-        // perform itemSelectedListener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext()
-                                , MainActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
+        tabLayout = findViewById(R.id.tablayout);
+        tabExpense = findViewById(R.id.tabExpense);
+        tabIncome = findViewById(R.id.tabIncome);
+        tabTotal = findViewById(R.id.tabTotal);
+        viewPager = findViewById(R.id.viewPager);
 
-                    case R.id.graph:
-                        startActivity(new Intent(getApplicationContext()
-                                , GraphActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
+        pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pageAdapter);
 
-                    case R.id.setup:
-                        startActivity(new Intent(getApplicationContext()
-                                , SetupActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                }
-                return false;
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-            }
-        });
+
+
+
+
+
     }
 }
