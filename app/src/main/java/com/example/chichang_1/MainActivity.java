@@ -14,16 +14,21 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+
 
 
     TextView label_top;
     TextView label_middle;
+    private String Date;
 
     BottomNavigationView bottomNavigationView;
 
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
 
 
         label_top = (TextView) findViewById(R.id.label_top);
@@ -107,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
                 String date = year + "/" + month + "/" + dayOfMonth;
+                Date = date;
                 String[] values2 = date.split("/");
 
                 switch (month){
@@ -162,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openCostActivity(){
         Intent intent = new Intent(this, CostActivity.class);
+        intent.putExtra("date",Date);
         startActivity(intent);
     }
 
@@ -177,5 +185,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) {
+            // No user is signed in
+
+            sendToLogin();
+        } else {
+            // User is  signed in
+        }
+    }
+
+    private void sendToLogin() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

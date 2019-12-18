@@ -41,7 +41,7 @@ public class ExpenseFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.addExpense){
-            Toast.makeText(getActivity(), "Clicked on" + item.getItemId(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Clicked on" + item.getItemId(), Toast.LENGTH_SHORT).show();
         }
         return true;
     }

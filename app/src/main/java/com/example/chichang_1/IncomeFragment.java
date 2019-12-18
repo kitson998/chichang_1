@@ -18,6 +18,7 @@ import android.widget.Toast;
  * A simple {@link Fragment} subclass.
  */
 public class IncomeFragment extends Fragment {
+    private String date;
 
 
     public IncomeFragment() {
@@ -41,7 +42,8 @@ public class IncomeFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.addIncome){
-            Toast.makeText(getActivity(), "Clicked on" + item.getItemId(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Clicked on" + item.getItemId(), Toast.LENGTH_SHORT).show();
+
         }
         return true;
     }
