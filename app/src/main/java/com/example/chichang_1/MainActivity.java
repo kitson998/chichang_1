@@ -1,17 +1,21 @@
 package com.example.chichang_1;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     TextView date;
     DatePickerDialog.OnDateSetListener setListener;
 
+    boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        label_top = (TextView) findViewById(R.id.label_top);
-        label_middle = (TextView) findViewById(R.id.lable_middle);
+        label_top = findViewById(R.id.label_top);
+        label_middle = findViewById(R.id.lable_middle);
 
         bottomNavigationView = findViewById(R.id.main_nav);
 
@@ -171,6 +177,25 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CostActivity.class);
         intent.putExtra("date",Date);
         startActivity(intent);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Tap again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
     // 覆寫Activity
