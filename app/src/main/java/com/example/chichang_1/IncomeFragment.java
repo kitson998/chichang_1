@@ -21,11 +21,6 @@ public class IncomeFragment extends Fragment {
     private String date;
 
 
-    public IncomeFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -20,10 +20,6 @@ import android.widget.Toast;
 public class ExpenseFragment extends Fragment {
 
 
-    public ExpenseFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
