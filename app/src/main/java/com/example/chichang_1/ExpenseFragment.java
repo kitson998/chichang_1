@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,12 +26,14 @@ public class ExpenseFragment extends Fragment {
     ListView listView;
     String date;
     CostActivity costActivity ;
+    //RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // 為了讓每個fragment有不同的optionmenu
         setHasOptionsMenu(true);
+
 
 
         return inflater.inflate(R.layout.fragment_expense, container, false);
@@ -57,6 +60,9 @@ public class ExpenseFragment extends Fragment {
         }
         return true;
     }
+
+
+
 
 
 
