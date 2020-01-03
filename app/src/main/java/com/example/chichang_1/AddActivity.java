@@ -48,7 +48,14 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        current_user_id = firebaseAuth.getCurrentUser().getUid();
+
         isIncome = getIntent().getBooleanExtra("isIncome",true);
+        Add_date  = getIntent().getStringExtra("date");
+        progressBar = findViewById(R.id.add_progress);
+        progressBar.setVisibility(View.INVISIBLE);
 
         Typespinner = findViewById(R.id.add_typespinner);
         ExpenseAdapter = ArrayAdapter.createFromResource(
@@ -71,7 +78,7 @@ public class AddActivity extends AppCompatActivity {
                     android.R.layout.simple_spinner_dropdown_item);
             Typespinner.setAdapter(ExpenseAdapter);
         }
-        /*ADDbutton.setOnClickListener(new View.OnClickListener() {
+        ADDbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
@@ -80,34 +87,19 @@ public class AddActivity extends AppCompatActivity {
                 if (!Addamount.getText().toString().equals("")){
                     //String id = UUID.randomUUID().toString();
                     int add = Integer.parseInt(Addamount.getText().toString());
-                    final boolean chosenIE  = IEspinner.getSelectedItem().toString().equals("Income");
+                    final boolean chosenIE  = isIncome;
                     String chosenType =Typespinner.getSelectedItem().toString();
                     Post newpost = new Post(Add_itemname,chosenType,current_user_id,Add_date,chosenIE,add);
 
-//                    Map<String,Object> PostMap = new HashMap<>();
-//                    PostMap.put("Id",id);
-//                    PostMap.put("Income or Expense",chosenIE);
-//                    PostMap.put("Type",chosenType);
-//                    PostMap.put("Item_name",Add_itemname);
-//                    PostMap.put("Amount",add);
-//                    PostMap.put("User_id",current_user_id);
-//                    PostMap.put("Date",Add_date);
-
 
                     firebaseFirestore.collection("Posts").add(newpost)
-//                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    Toast.makeText(AddActivity.this,"Post was added!",Toast.LENGTH_LONG).show();
-//                                    sendToDate();
-//                                }
-//                            })
+
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(AddActivity.this,"Post was added!",Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.INVISIBLE);
-                                    sendToDate();
+                                    //sendToDate();
 
                                 }
                             })
@@ -125,7 +117,7 @@ public class AddActivity extends AppCompatActivity {
                 }
 
             }
-        });*/
+        });
 
 
         Add_backbtn.setOnClickListener(new View.OnClickListener() {

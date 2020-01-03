@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView label_top;
     TextView label_middle;
-    private String Date;
+    private  String Date;
+    TextView invisible;
 
     BottomNavigationView bottomNavigationView;
 
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         label_top = findViewById(R.id.label_top);
         label_middle = findViewById(R.id.lable_middle);
+        invisible = findViewById(R.id.invisible_date);
+        //invisible.setVisibility(View.INVISIBLE);
 
         bottomNavigationView = findViewById(R.id.main_nav);
 
@@ -59,11 +62,16 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MMM/d", Locale.US);
 
         String strDate = sdf.format(cal.getTime());
+
         // split() 分割字串
         String[] values1 = strDate.split("/");
 
         label_top.setText(values1[1] + " " + values1[0]);
         label_middle.setText(values1[2]);
+        sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+
+        strDate = sdf.format(cal.getTime());
+        invisible.setText(strDate);
 
 
 
@@ -98,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
         // create datepicker
         date = findViewById(R.id.select_date);
+
 
         final int year = cal.get(Calendar.YEAR);
         final int month = cal.get(Calendar.MONTH);
@@ -161,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 label_middle.setText(values2[2]);
+                invisible.setText(Date);
+
             }
         };
 
@@ -175,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openCostActivity(){
         Intent intent = new Intent(this, CostActivity.class);
-        intent.putExtra("date",Date);
+        intent.putExtra("date",invisible.getText().toString());
         startActivity(intent);
     }
 

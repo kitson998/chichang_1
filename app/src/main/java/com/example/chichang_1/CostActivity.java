@@ -15,6 +15,7 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,7 +31,8 @@ public class CostActivity extends AppCompatActivity {
     TabItem tabExpense;
     TabItem tabIncome;
     TabItem tabTotal;
-    private String date;
+    public String date;
+    TextView title;
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -40,14 +42,20 @@ public class CostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cost);
 
         toolbar = findViewById(R.id.toolbar);
+        title = findViewById(R.id.toolbar_title);
+
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                getParent().onBackPressed();
+            }
+        });
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-
-       /* getSupportActionBar().setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>"));*/
         date = getIntent().getStringExtra("date");
+        title.setText(date);
 
         tabLayout = findViewById(R.id.tablayout);
         tabExpense = findViewById(R.id.tabExpense);

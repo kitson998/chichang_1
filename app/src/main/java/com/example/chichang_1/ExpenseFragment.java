@@ -23,13 +23,18 @@ import android.widget.Toast;
 public class ExpenseFragment extends Fragment {
 
     ListView listView;
+    String date;
+    CostActivity costActivity ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // 為了讓每個fragment有不同的optionmenu
         setHasOptionsMenu(true);
+
+
         return inflater.inflate(R.layout.fragment_expense, container, false);
+
     }
 
     @Override
@@ -43,7 +48,11 @@ public class ExpenseFragment extends Fragment {
             Intent intent = new Intent(this.getActivity(), AddActivity.class);
             boolean expense = false;
             intent.putExtra("isIncome",expense );
+            costActivity= (CostActivity)this.getActivity();
+            date = costActivity.date;
+            intent.putExtra("date",date);
             startActivity(intent);
+            //Toast.makeText(this.getActivity(),date,Toast.LENGTH_LONG).show();
 
         }
         return true;

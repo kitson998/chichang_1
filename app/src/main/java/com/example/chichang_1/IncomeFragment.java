@@ -22,6 +22,7 @@ import android.widget.Toast;
 public class IncomeFragment extends Fragment {
     private String date;
     private Button AddNewIncome;
+    CostActivity costActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +43,9 @@ public class IncomeFragment extends Fragment {
             Intent intent = new Intent(this.getActivity(), AddActivity.class);
             boolean expense = true;
             intent.putExtra("isIncome",expense );
+            costActivity= (CostActivity)this.getActivity();
+            date = costActivity.date;
+            intent.putExtra("date",date);
             startActivity(intent);
             return true;
         }
