@@ -1,6 +1,7 @@
 package com.example.chichang_1;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -19,7 +22,7 @@ import android.widget.Toast;
  */
 public class ExpenseFragment extends Fragment {
 
-
+    ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,8 +40,15 @@ public class ExpenseFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.addExpense){
-            //Toast.makeText(getActivity(), "Clicked on" + item.getItemId(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this.getActivity(), AddActivity.class);
+            boolean expense = false;
+            intent.putExtra("isIncome",expense );
+            startActivity(intent);
+
         }
         return true;
     }
+
+
+
 }

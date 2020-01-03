@@ -1,6 +1,7 @@
 package com.example.chichang_1;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -19,7 +21,7 @@ import android.widget.Toast;
  */
 public class IncomeFragment extends Fragment {
     private String date;
-
+    private Button AddNewIncome;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,10 +39,15 @@ public class IncomeFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.addIncome){
-            //Toast.makeText(getActivity(), "Clicked on" + item.getItemId(), Toast.LENGTH_SHORT).show();
-
+            Intent intent = new Intent(this.getActivity(), AddActivity.class);
+            boolean expense = true;
+            intent.putExtra("isIncome",expense );
+            startActivity(intent);
+            return true;
         }
-        return true;
+        else{
+            Toast.makeText(getActivity(), "Clicked on" + item.getItemId(), Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
-
 }

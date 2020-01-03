@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">chichang</string>
+    <string name="app_name">CHICHANG</string>
     <string name="appTitle">Time to CHICHANG</string>
 
     <string name="nav_setup">Setup</string>
@@ -18,6 +18,17 @@
     <string name="have_a_acc">Already have an account?</string>
     <string name="passvali">Password again</string>
     <string name="prompt_email">Email</string>
+
+    <string name="IE">Income or expense:</string>
+    <string name="type">Type:</string>
+    <string name="Item_name">Item name:</string>
+    <string name="amount">Amount:</string>
+    <string name="back">Back</string>
+    <string name="Add">Add</string>
+    <string name="Add_income">Add new income</string>
+    <string name="Add_expense">Add new expense</string>
+    <string name="enterHere">Enter here</string>
+    <string name="just_a_blank" />
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
