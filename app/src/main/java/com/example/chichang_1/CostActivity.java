@@ -10,9 +10,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabItem;
@@ -29,19 +32,21 @@ public class CostActivity extends AppCompatActivity {
     TabItem tabTotal;
     private String date;
 
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cost);
 
-        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用*/
-
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("CHICHANG");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+
+       /* getSupportActionBar().setTitle(Html.fromHtml("<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>"));*/
         date = getIntent().getStringExtra("date");
 
         tabLayout = findViewById(R.id.tablayout);
@@ -55,5 +60,22 @@ public class CostActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
+    }
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Tap again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }
