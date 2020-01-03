@@ -124,6 +124,7 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddActivity.this, CostActivity.class);
+                intent.putExtra("date",Add_date);
                 startActivity(intent);
             }
         });

@@ -6,22 +6,35 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CostActivity extends AppCompatActivity {
 
@@ -34,6 +47,11 @@ public class CostActivity extends AppCompatActivity {
     TabItem tabTotal;
     public String date;
     TextView title;
+    RecyclerView recyclerView;
+    private FirebaseFirestore db ;
+    private FirebaseUser currentUser;
+    private PostAdapter adapter;
+    private ArrayList<Post> postArrayList ;
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -63,20 +81,124 @@ public class CostActivity extends AppCompatActivity {
         tabIncome = findViewById(R.id.tabIncome);
         tabTotal = findViewById(R.id.tabTotal);
         viewPager = findViewById(R.id.viewPager);
+        recyclerView = findViewById(R.id.recycler);
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        recyclerView = findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        postArrayList = new ArrayList<>();
+        adapter = new PostAdapter(this, postArrayList);
+        recyclerView.setAdapter(adapter);
+        db= FirebaseFirestore.getInstance();
+        db.collection("Posts").whereEqualTo("user_id",currentUser.getUid()).whereEqualTo("date",date).
+                whereEqualTo("income",false).orderBy("item_name").
+                get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    //PiePass = true;
+                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                    for (DocumentSnapshot d : list) {
+                        Post p = d.toObject(Post.class);
+                        p.setId(d.getId());
+                        postArrayList.add(p);
+                    }
+
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
 
         pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
+
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                Toast.makeText(CostActivity.this, "$"+position, Toast.LENGTH_LONG).show();
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                setupList(position);
             }
         });
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
 
     }
+
+    private void setupList(int pos) {
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        recyclerView = findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        postArrayList = new ArrayList<>();
+        adapter = new PostAdapter(this, postArrayList);
+        recyclerView.setAdapter(adapter);
+        db= FirebaseFirestore.getInstance();
+        switch (pos){
+            case 0:
+                db.collection("Posts").whereEqualTo("user_id",currentUser.getUid()).whereEqualTo("date",date).
+                        whereEqualTo("income",false).orderBy("item_name").
+                        get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            //PiePass = true;
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            for (DocumentSnapshot d : list) {
+                                Post p = d.toObject(Post.class);
+                                p.setId(d.getId());
+                                postArrayList.add(p);
+                            }
+
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+                break;
+            case 1:
+                db.collection("Posts").whereEqualTo("user_id",currentUser.getUid()).whereEqualTo("date",date).
+                        whereEqualTo("income",true).orderBy("item_name").
+                        get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            //PiePass = true;
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            for (DocumentSnapshot d : list) {
+                                Post p = d.toObject(Post.class);
+                                p.setId(d.getId());
+                                postArrayList.add(p);
+                            }
+                            adapter.notifyDataSetChanged();
+
+                        }
+                    }
+                });
+                break;
+            case 2:
+                db.collection("Posts").whereEqualTo("user_id",currentUser.getUid()).whereEqualTo("date",date).orderBy("item_name").
+                        get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            //PiePass = true;
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            for (DocumentSnapshot d : list) {
+                                Post p = d.toObject(Post.class);
+                                p.setId(d.getId());
+                                postArrayList.add(p);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+                break;
+        }
+
+    }
+
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -94,4 +216,5 @@ public class CostActivity extends AppCompatActivity {
             }
         }, 2000);
     }
+
 }
