@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/appname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/appname"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/main_nav"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="#f5f5f6"
+        app:itemIconTint="@color/nav_items_colors"
+        app:itemTextColor="@color/nav_items_colors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/nav_items" />
+
+    <Button
+        android:id="@+id/back"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:background="@drawable/circle_button"
+        android:drawableStart="@drawable/ic_back"
+        android:drawablePadding="-10dp"
+        android:paddingStart="5dp"
+        android:paddingLeft="10dp"
+        app:layout_constraintBottom_toTopOf="@id/txtinput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18" />
+
+    <EditText
+        android:id="@+id/txtinput"
+        android:layout_width="409dp"
+        android:layout_height="66dp"
+        android:hint="Input New Category"
+        app:layout_constraintBottom_toTopOf="@id/main_nav"
+        app:layout_constraintTop_toBottomOf="@id/appname"
+        app:layout_constraintVertical_bias="0.050000012"/>
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="409dp"
+        android:layout_height="62dp"
+        android:background="@drawable/rounded_button"
+        android:text="Add Category"
+        android:textColor="#ffffff"
+        app:layout_constraintTop_toBottomOf="@id/txtinput" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="297dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_nav"
+        android:choiceMode="multipleChoice"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
