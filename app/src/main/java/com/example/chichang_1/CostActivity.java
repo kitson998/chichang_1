@@ -68,7 +68,9 @@ public class CostActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                getParent().onBackPressed();
+                Intent intent  =new Intent(CostActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         getSupportActionBar().setDisplayShowTitleEnabled(false);

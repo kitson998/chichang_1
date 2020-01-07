@@ -12,7 +12,7 @@
     <array name="add_incomelist">
         <item>Salary</item>
         <item>Allowance</item>
-        <item>Award/Bonus</item>
+        <item>Award or Bonus</item>
         <item>Others</item>
     </array>
 </resources>

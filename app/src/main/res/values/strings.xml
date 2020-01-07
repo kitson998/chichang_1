@@ -46,7 +46,7 @@
 
     <string name="salary">Salary</string>
     <string name="allowance">Allowance</string>
-    <string name="award_bonus">Award/Bonus</string>
+    <string name="award_bonus">Award or Bonus</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

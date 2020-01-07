@@ -10,10 +10,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SetupActivity extends AppCompatActivity {
     private Button theme_color;
     private Button add_category;
+    private Button logout;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class SetupActivity extends AppCompatActivity {
 
         theme_color = (Button) findViewById(R.id.theme_color);
         add_category = (Button) findViewById(R.id.add_category);
+        logout=findViewById(R.id.logout);
         theme_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +36,12 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openCategory();
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logout();
             }
         });
 
@@ -73,5 +83,12 @@ public class SetupActivity extends AppCompatActivity {
     public void openCategory(){
         Intent intent = new Intent(this, CategoryActivity.class);
         startActivity(intent);
+    }
+    public void Logout(){
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+        Intent intent = new Intent(SetupActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
