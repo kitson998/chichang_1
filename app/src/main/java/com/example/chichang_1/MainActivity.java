@@ -86,8 +86,10 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.graph:
-                        startActivity(new Intent(getApplicationContext()
-                                , GraphActivity.class));
+                        Intent intent = new Intent(getApplicationContext(), GraphActivity.class);
+                        intent.putExtra("date",invisible.getText().toString());
+                        startActivity(intent);
+
                         overridePendingTransition(0, 0);
                         return true;
 

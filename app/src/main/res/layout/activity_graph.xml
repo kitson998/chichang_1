@@ -6,14 +6,52 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     tools:context=".GraphActivity">
-
-    <TextView
-        android:id="@+id/textView2"
+    <ProgressBar
+        android:id="@+id/PieProgress"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GraphActivity"
-        android:textColor="@color/colorGrayLight"
-        android:textSize="50sp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="@+id/pielayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pielayout" />
+
+    <ToggleButton
+        android:id="@+id/IE_swtich"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:text="@string/expense"
+        android:textOff="@string/expense"
+        android:textOn="@string/income"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pielayout" />
+    <LinearLayout
+        android:id="@+id/pielayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/pieDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:text="@string/date"
+        android:textColor="@color/colorWhite"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

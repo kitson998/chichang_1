@@ -62,6 +62,9 @@ public class CategoryActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.setup:
+                        startActivity(new Intent(getApplicationContext()
+                                , SetupActivity.class));
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;

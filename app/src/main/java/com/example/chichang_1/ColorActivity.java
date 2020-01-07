@@ -6,8 +6,12 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class ColorActivity extends AppCompatActivity {
 
@@ -15,7 +19,6 @@ public class ColorActivity extends AppCompatActivity {
     Button mRed;
     Button mBlack;
     Button mDefault;
-    private Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +30,19 @@ public class ColorActivity extends AppCompatActivity {
         mBlack = findViewById(R.id.btnBlack);
         mDefault = findViewById(R.id.btnDefault);
 
-        back = findViewById(R.id.btnBack);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mToolbar.setNavigationIcon(R.mipmap.back);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                getParent().onBackPressed();
+            }
+        });
 
-        mToolbar.setTitle(getResources().getString(R.string.app_name));
+        //mToolbar.setTitle(getResources().getString(R.string.app_name));
 
-        if(getColor() != getResources().getColor(R.color.colorPrimary)){
+        if (getColor() != getResources().getColor(R.color.colorPrimary)) {
             mToolbar.setBackgroundColor(getColor());
             getWindow().setStatusBarColor(getColor());
         }
@@ -62,25 +73,39 @@ public class ColorActivity extends AppCompatActivity {
                 storeColor(getResources().getColor(R.color.colorPrimary));
             }
         });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ColorActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
-    private void storeColor(int color){
+
+    private void storeColor(int color) {
         SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
         SharedPreferences.Editor mEditor = mSharedPreferences.edit();
         mEditor.putInt("color", color);
         mEditor.apply();
     }
-    private int getColor(){
+
+    private int getColor() {
         SharedPreferences mSharedPreferences = getSharedPreferences("ToolbarColor", MODE_PRIVATE);
         int selectedColor = mSharedPreferences.getInt("color", getResources().getColor(R.color.colorPrimary));
         return selectedColor;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_logout, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.logging_out:
+                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.choice:
+                //Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

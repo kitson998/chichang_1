@@ -77,7 +77,7 @@ public class SetupActivity extends AppCompatActivity {
 
     }
     public void openColor(){
-        Intent intent = new Intent(this, ColorActivity.class);
+        Intent intent = new Intent(SetupActivity.this, ColorActivity.class);
         startActivity(intent);
     }
     public void openCategory(){
