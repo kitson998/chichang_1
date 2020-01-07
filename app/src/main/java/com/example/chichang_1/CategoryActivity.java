@@ -11,27 +11,31 @@ import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SetupActivity extends AppCompatActivity {
-    private Button theme_color;
-    private Button add_category;
+public class CategoryActivity extends AppCompatActivity {
+    private Button expense;
+    private Button income;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setup);
+        setContentView(R.layout.activity_category);
 
-        theme_color = (Button) findViewById(R.id.theme_color);
-        add_category = (Button) findViewById(R.id.add_category);
-        theme_color.setOnClickListener(new View.OnClickListener() {
+        expense = (Button) findViewById(R.id.expense);
+        income = (Button) findViewById(R.id.income);
+        expense.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openColor();
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(CategoryActivity.this, Expense.class);
+                startActivity(intent);
             }
         });
-        add_category.setOnClickListener(new View.OnClickListener() {
+        income.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openCategory();
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(CategoryActivity.this, Income.class);
+                startActivity(intent);
             }
         });
 
@@ -63,15 +67,5 @@ public class SetupActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-    }
-    public void openColor(){
-        Intent intent = new Intent(this, ColorActivity.class);
-        startActivity(intent);
-    }
-    public void openCategory(){
-        Intent intent = new Intent(this, CategoryActivity.class);
-        startActivity(intent);
     }
 }

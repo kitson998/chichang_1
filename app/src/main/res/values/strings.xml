@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CHICHANG</string>
     <string name="appTitle">Time to CHICHANG</string>
+    <string name="categoryName">Check Category</string>
 
     <string name="nav_setup">Setup</string>
     <string name="nav_graph">Graph</string>
@@ -32,6 +33,20 @@
     <string name="updatepost">Update Post</string>
     <string name="deletepost">Delete Post</string>
     <string name="date">Date:</string>
+
+    <string name="title_message">Select Category</string>
+    <string name="food">Food</string>
+    <string name="clothing">Clothing</string>
+    <string name="housing">Housing</string>
+    <string name="transportation">Transportation</string>
+    <string name="education">Education</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="others">Others</string>
+    <string name="save">SAVE</string>
+
+    <string name="salary">Salary</string>
+    <string name="allowance">Allowance</string>
+    <string name="award_bonus">Award/Bonus</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

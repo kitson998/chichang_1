@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AddActivity"/>
+        <activity android:name=".ColorActivity"></activity>
+        <activity android:name=".Expense" />
+        <activity android:name=".Income" />
+        <activity android:name=".CategoryActivity" />
+        <activity android:name=".AddActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UpdatePostActivity" />
         <activity android:name=".LoginActivity" />
