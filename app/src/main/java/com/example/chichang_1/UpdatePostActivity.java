@@ -41,11 +41,11 @@ public class UpdatePostActivity extends AppCompatActivity {
     private String update_date,update_item_name,update_type;
     private boolean update_isIncome;
     private double update_amount;
+    private Spinner IEspinner;
     private Spinner Typespinner;
     private ArrayAdapter<CharSequence> IEAdapter;
     private ArrayAdapter<CharSequence> IncomeAdapter;
     private ArrayAdapter<CharSequence> ExpenseAdapter;
-    private EditText Addamount;
     private TextView dateview;
     private EditText amount,item;
     private String chosenDate;
@@ -60,17 +60,71 @@ public class UpdatePostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_update_post);
         post = (Post) getIntent().getSerializableExtra("post");
         db = FirebaseFirestore.getInstance();
+        IEspinner = (Spinner) findViewById(R.id.update_IE_spin);
         Typespinner = findViewById(R.id.update_type_spin);
-
+        IEAdapter  = ArrayAdapter.createFromResource(
+                this, R.array.add_IE, android.R.layout.simple_spinner_item );
         IEAdapter.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item);
         IncomeAdapter  = ArrayAdapter.createFromResource(
                 this, R.array.add_incomelist, android.R.layout.simple_spinner_item );
         ExpenseAdapter = ArrayAdapter.createFromResource(
                 this, R.array.add_expenselist, android.R.layout.simple_spinner_item );
+        IEspinner.setAdapter(IEAdapter);
+        if (post.isIncome()){
+            IEspinner.setSelection(0);
+        }else{
+            IEspinner.setSelection(1);
+        }
 
+        IEspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (IEAdapter.getItem(i).equals("Income")){
 
+                    IncomeAdapter.setDropDownViewResource(
+                            android.R.layout.simple_spinner_dropdown_item);
+                    Typespinner.setAdapter(IncomeAdapter);
+                    switch (post.getType()){
+                        case "Salary":
+                            Typespinner.setSelection(0);break;
+                        case "Allowance":
+                            Typespinner.setSelection(1);break;
+                        case "Award/Bonus":
+                            Typespinner.setSelection(2);break;
+                        default:
+                            Typespinner.setSelection(3);break;
 
+                    }
+                }else{
+                    ExpenseAdapter.setDropDownViewResource(
+                            android.R.layout.simple_spinner_dropdown_item);
+                    Typespinner.setAdapter(ExpenseAdapter);
+                    switch (post.getType()){
+                        case "Food":
+                            Typespinner.setSelection(0);break;
+                        case "Clothing":
+                            Typespinner.setSelection(1);break;
+                        case "Housing":
+                            Typespinner.setSelection(2);break;
+                        case "Transportation":
+                            Typespinner.setSelection(3);break;
+                        case "Education":
+                            Typespinner.setSelection(4);break;
+                        case "Entertainment":
+                            Typespinner.setSelection(5);break;
+                        default:
+                            Typespinner.setSelection(6);break;
+
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         amount = findViewById(R.id.update_amount_text);
         item= findViewById(R.id.update_item);
         dateview = findViewById(R.id.update_date);
