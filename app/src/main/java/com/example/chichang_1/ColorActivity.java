@@ -3,6 +3,7 @@ package com.example.chichang_1;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,12 +14,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class ColorActivity extends AppCompatActivity {
 
     Toolbar mToolbar;
     Button mRed;
     Button mBlack;
     Button mDefault;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,7 @@ public class ColorActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.logging_out:
                 Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                Logout();
                 break;
             case R.id.choice:
                 //Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
@@ -107,5 +112,12 @@ public class ColorActivity extends AppCompatActivity {
             default:
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void Logout(){
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+        Intent intent = new Intent(ColorActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
